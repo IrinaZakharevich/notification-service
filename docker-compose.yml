@@ -3,9 +3,9 @@ version: '3.7'
 services:
   web:
     build: .
+    container_name: web
     env_file:
       - .env
-    command: ["./entrypoint.sh"]
     volumes:
       - .:/app
     ports:
@@ -13,13 +13,14 @@ services:
     depends_on:
       - db
       - redis
-
   db:
     image: postgres:13
     environment:
       POSTGRES_USER: ${DB_USER}
       POSTGRES_PASSWORD: ${DB_PASS}
       POSTGRES_DB: ${DB_NAME}
+    ports:
+      - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
@@ -46,23 +47,6 @@ services:
     environment:
       - CELERY_BROKER_URL=${CELERY_BROKER_URL}
       - CELERY_RESULT_BACKEND=${CELERY_RESULT_BACKEND}
-    volumes:
-      - .:/app
-
-  test:
-    build: .
-    container_name: notifications_test
-    command: /bin/bash -c "
-      alembic upgrade head &&
-      pytest tests -s -v
-      "
-    depends_on:
-      - web
-      - db
-      - redis
-    environment:
-      - SYNC_DATABASE_URL=${SYNC_TEST_DATABASE_URL}
-      - REDIS_HOST=redis
     volumes:
       - .:/app
 

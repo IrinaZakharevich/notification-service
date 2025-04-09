@@ -67,5 +67,5 @@ Swagger-документация доступна по адресу:
 Чтобы запустить тесты в Docker:
 
 ```bash
-docker-compose run test
+docker exec -it web pytest tests
 ```

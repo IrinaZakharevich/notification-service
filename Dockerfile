@@ -1,4 +1,4 @@
-FROM python:3.9-slim
+FROM python:3.10-slim
 
 WORKDIR /app
 
@@ -14,4 +14,4 @@ EXPOSE 8080
 
 RUN chmod +x entrypoint.sh
 
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8080"]
+ENTRYPOINT ["/app/entrypoint.sh"]
