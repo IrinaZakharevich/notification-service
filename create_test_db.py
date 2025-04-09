@@ -4,11 +4,11 @@ import os
 
 def create_test_db():
     dbname = "test_db"
-    user = os.getenv("POSTGRES_USER", "user")
-    password = os.getenv("POSTGRES_PASSWORD", "password")
-    host = os.getenv("POSTGRES_HOST", "db")
+    user = os.getenv("DB_USER", "user")
+    password = os.getenv("DB_PASS", "password")
+    host = os.getenv("DB_HOST", "db")
 
-    conn = psycopg2.connect(dbname="postgres", user=user, password=password, host=host)
+    conn = psycopg2.connect(dbname="notification_db", user=user, password=password, host=host)
     conn.autocommit = True
     cur = conn.cursor()
 

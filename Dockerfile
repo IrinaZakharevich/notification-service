@@ -8,11 +8,10 @@ RUN pip install -r requirements.txt
 
 COPY . .
 
-# Устанавливаем переменные окружения для FastAPI
 ENV PYTHONUNBUFFERED=1
 
-# Открываем порт для FastAPI
-EXPOSE 8000
+EXPOSE 8080
 
-# Команда для запуска приложения FastAPI с использованием Uvicorn
+RUN chmod +x entrypoint.sh
+
 CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8080"]

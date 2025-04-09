@@ -81,7 +81,7 @@ def mock_execute_result_all():
 
 
 @pytest.fixture(autouse=True)
-def disable_cache():
-    FastAPICache.clear()
+async def disable_cache():
+    await FastAPICache.clear()
     yield
-    FastAPICache.clear()
+    await FastAPICache.clear()
