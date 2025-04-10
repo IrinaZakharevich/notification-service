@@ -42,7 +42,7 @@ class NotificationService:
             analyze.delay(str(db_notification.id))
             return NotificationRead.model_validate(db_notification)
         except Exception as e:
-            logger.exception(f"Error while creating notification: {e}")
+            logger.exception(f"Error while creating notification {notification}: {e}")
             raise HTTPException(status_code=500, detail="Error creating notification")
 
     async def get_notifications(self, filters: NotificationFilter) -> list[NotificationRead]:
@@ -82,7 +82,7 @@ class NotificationService:
                 return NotificationRead.model_validate(notification)
             return None
         except Exception as e:
-            logger.error(f"Error while getting notification: {e}")
+            logger.error(f"Error while getting notification {notification_id}: {e}")
             raise HTTPException(status_code=500, detail="Error retrieving notification")
 
     async def update_read_status(
@@ -100,7 +100,7 @@ class NotificationService:
                 return NotificationRead.model_validate(db_notification)
             raise HTTPException(status_code=404, detail="Notification not found")
         except Exception as e:
-            logger.error(f"Error while updating read status: {e}")
+            logger.error(f"Error while updating read status {notification_id}: {e}")
             raise HTTPException(status_code=500, detail="Error updating notification status")
 
     async def get_notification_status(
@@ -118,5 +118,5 @@ class NotificationService:
                 return NotificationStatus(processing_status=status)
             return None
         except Exception as e:
-            logger.error(f"Error while getting notification status: {e}")
+            logger.error(f"Error while getting notification status {notification_id}: {e}")
             raise HTTPException(status_code=500, detail="Error retrieving notification status")
