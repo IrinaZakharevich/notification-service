@@ -17,9 +17,9 @@ def create_test_db():
 
     if not exists:
         cur.execute(f"CREATE DATABASE {dbname}")
-        print(f"✅ Created database: {dbname}")
+        print(f"Created database: {dbname}")
     else:
-        print(f"ℹ️ Database '{dbname}' already exists.")
+        print(f"Database '{dbname}' already exists.")
 
     cur.close()
     conn.close()
